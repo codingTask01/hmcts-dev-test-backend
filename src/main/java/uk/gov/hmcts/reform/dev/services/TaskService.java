@@ -33,4 +33,28 @@ public class TaskService {
 
         return taskRepository.save(newTask);
     }
+
+    public Task updateTaskStatus(long taskId, TaskDTO taskDTO) {
+
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+
+        if (taskOptional.isEmpty()) {
+            return null;
+        }
+
+        taskOptional.get().setStatus(taskDTO.getStatus());
+        return taskRepository.save(taskOptional.get());
+    }
+
+    public String deleteTask (long taskId) {
+        Optional<Task> taskOptional = taskRepository.findById(taskId);
+
+        if (taskOptional.isEmpty()) {
+            return "Invalid task Id";
+        }
+
+        taskRepository.deleteById(taskId);
+        return "Task " + taskId + "ID deleted successfully.";
+    }
+
 }
