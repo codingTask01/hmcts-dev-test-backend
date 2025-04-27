@@ -17,11 +17,15 @@ management:
       exposure:
         include: info # should we have more?
 
-springdoc:
-  packagesToScan: uk.gov.hmcts.reform.dev.controllers
-  writer-with-order-by-keys: true
-
 spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/task_manager
+    username:
+    password:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
   config:
     import: "optional:configtree:/mnt/secrets/test/"
   application:
@@ -47,3 +51,7 @@ spring:
 #          lob:
 #            # silence the 'wall-of-text' - unnecessary exception throw about blob types
 #            non_contextual_creation: true
+
+springdoc:
+  packagesToScan: uk.gov.hmcts.reform.dev.controllers
+  writer-with-order-by-keys: true
